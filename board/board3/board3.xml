@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2013, AllSeen Alliance. All rights reserved. Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the 
+  above copyright notice and this permission notice appear in all copies. THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES 
+  OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, 
+  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. -->
+<controlPanelDevice xmlns="http://www.alljoyn.org/controlpanel/gen">
+  <name>Furniture</name>
+  <headerCode>#include "ControlPanelProvided.h"</headerCode>
+  <url>http://MyControlPanelUrl.com</url>
+  <languageSet name="myLanguages">
+    <language>en</language>
+  </languageSet>
+  <controlPanels>
+    <controlPanel languageSet="myLanguages">
+      <rootContainer>
+        <name>FurnitureController</name>
+        <secured>false</secured>
+        <enabled>true</enabled>
+        <bgcolor>0x200</bgcolor>
+        <hints>
+          <hint>vertical_linear</hint>
+        </hints>
+        <elements>
+          <scalarProperty dataType="UINT16">
+            <name>lamp</name>
+            <getCode>getuint32Var</getCode>
+            <setCode>setuint32Var(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Lamp</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>slider</hint>
+            </hints>
+            <constraintDefs>
+              <constraintRange>
+                <min>0</min>
+                <max>4</max>
+                <increment>1</increment>
+              </constraintRange>
+            </constraintDefs>
+            <unitMeasure>
+              <value type="literal" language="en">luminance</value>
+            </unitMeasure>
+          </scalarProperty>
+          <action>
+            <name>light</name>
+            <onAction>
+              <dialog>
+                <name>LightConfirm</name>
+                <secured>false</secured>
+                <enabled>true</enabled>
+                <message>
+                  <value type="literal" language="en">Do you want to turn on the light</value>
+                </message>
+                <label>
+                  <value type="literal" language="en">Turn on Light</value>
+                </label>
+                <bgcolor>0x122</bgcolor>
+                <hints>
+                  <hint>alertdialog</hint>
+                </hints>
+                <button>
+                  <label>
+                    <value type="literal" language="en">Yes</value>
+                  </label>
+                  <executeCode>openLamp();</executeCode>
+                </button>
+                <button>
+                  <label>
+                    <value type="literal" language="en">No</value>
+                  </label>
+                  <executeCode>closeLamp();</executeCode>
+                </button>
+              </dialog>
+            </onAction>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <label>
+              <value type="literal" language="en">Lamp</value>
+            </label>
+            <bgcolor>0x400</bgcolor>
+            <hints>
+              <hint>actionButton</hint>
+            </hints>
+          </action>
+          <!--  -->
+        </elements>
+      </rootContainer>
+    </controlPanel>
+  </controlPanels>
+</controlPanelDevice>
+

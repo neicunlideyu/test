@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2013, AllSeen Alliance. All rights reserved. Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the 
+  above copyright notice and this permission notice appear in all copies. THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES 
+  OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, 
+  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. -->
+<controlPanelDevice xmlns="http://www.alljoyn.org/controlpanel/gen">
+  <name>Furniture</name>
+  <headerCode>#include "ControlPanelProvided.h"</headerCode>
+  <url>http://MyControlPanelUrl.com</url>
+  <languageSet name="myLanguages">
+    <language>en</language>
+  </languageSet>
+  <controlPanels>
+    <controlPanel languageSet="myLanguages">
+      <rootContainer>
+        <name>FurnitureController</name>
+        <secured>false</secured>
+        <enabled>true</enabled>
+        <bgcolor>0x200</bgcolor>
+        <hints>
+          <hint>vertical_linear</hint>
+        </hints>
+        <elements>
+          <scalarProperty dataType="UINT16">
+            <name>Electric_Fan</name>
+            <getCode>getProgram</getCode>
+            <setCode>setProgram(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Electric Fan</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>radiobutton</hint>
+            </hints>
+            <constraintDefs>
+              <constraintVals>
+                <constraint>
+                  <display>
+                    <value type="literal" language="en">Off</value>
+                  </display>
+                  <value>0</value>
+                </constraint>
+                <constraint>
+                  <display>
+                    <value type="literal" language="en">On</value>
+                  </display>
+                  <value>1</value>
+                </constraint>
+              </constraintVals>
+            </constraintDefs>
+          </scalarProperty>
+          <scalarProperty dataType="UINT16">
+            <name>led</name>
+            <getCode>getuint16Var</getCode>
+            <setCode>setuint16Var(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Lamp</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>slider</hint>
+            </hints>
+            <constraintDefs>
+              <constraintRange>
+                <min>0</min>
+                <max>10</max>
+                <increment>1</increment>
+              </constraintRange>
+            </constraintDefs>
+            <unitMeasure>
+              <value type="literal" language="en">luminance</value>
+            </unitMeasure>
+          </scalarProperty>
+          <action>
+            <name>start</name>
+            <onAction>
+              <executeCode>openBuzzing();</executeCode>
+            </onAction>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <label>
+              <value type="literal" language="en">Start Buzzing</value>
+            </label>
+            <bgcolor>0x400</bgcolor>
+            <hints>
+              <hint>actionButton</hint>
+            </hints>
+          </action>
+          <action>
+            <name>stop</name>
+            <onAction>
+              <executeCode>closeBuzzing();</executeCode>
+            </onAction>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <label>
+              <value type="literal" language="en">Stop Buzzing</value>
+            </label>
+            <bgcolor>0x400</bgcolor>
+            <hints>
+              <hint>actionButton</hint>
+            </hints>
+          </action>
+          <action>
+            <name>lamp</name>
+            <onAction>
+              <dialog>
+                <name>LightConfirm</name>
+                <secured>false</secured>
+                <enabled>true</enabled>
+                <message>
+                  <value type="literal" language="en">Do you want to turn on the light</value>
+                </message>
+                <label>
+                  <value type="literal" language="en">Turn on Light</value>
+                </label>
+                <bgcolor>0x122</bgcolor>
+                <hints>
+                  <hint>alertdialog</hint>
+                </hints>
+                <button>
+                  <label>
+                    <value type="literal" language="en">Yes</value>
+                  </label>
+                  <executeCode>openLamp();</executeCode>
+                </button>
+                <button>
+                  <label>
+                    <value type="literal" language="en">No</value>
+                  </label>
+                  <executeCode>closeLamp();</executeCode>
+                </button>
+              </dialog>
+            </onAction>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <label>
+              <value type="literal" language="en">Lamp</value>
+            </label>
+            <bgcolor>0x400</bgcolor>
+            <hints>
+              <hint>actionButton</hint>
+            </hints>
+          </action>
+          <!-- -->
+          <labelProperty>
+            <name>CurrentTemp</name>
+            <enabled>true</enabled>
+            <label>
+              <value type="literal" language="en">Current Temperature:</value>
+            </label>
+            <bgcolor>0x98765</bgcolor>
+            <hints>
+              <hint>textlabel</hint>
+            </hints>
+          </labelProperty>
+          <!-- -->
+          <stringProperty>
+            <name>modeStringProperty</name>
+            <getCode>getStringVar</getCode>
+            <setCode>setStringVar(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+<!--             <label>
+              <value type="constant" language="en">HEATING_MODE_EN</value>
+            </label>
+ -->            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>edittext</hint>
+            </hints>
+<!--             <constraintVals>
+              <constraint>
+                <display>
+                  <value type="literal" language="en">Grill Mode</value>
+                </display>
+                <value>Grill</value>
+              </constraint>
+              <constraint>
+                <display>
+                  <value type="literal" language="en">Regular Mode</value>
+                </display>
+                <value>Normal</value>
+              </constraint>
+            </constraintVals>
+ -->          </stringProperty>
+          <!-- -->
+          <booleanProperty>
+            <name>checkboxProperty</name>
+            <getCode>getboolVar</getCode>
+            <setCode>setboolVar(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Turbo Mode:</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>checkbox</hint>
+            </hints>
+          </booleanProperty>
+          <!-- -->
+          <dateProperty>
+            <name>startDateProperty</name>
+            <getCode>getDateProperty</getCode>
+            <setCode>setDateProperty(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Start Date:</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>datepicker</hint>
+            </hints>
+          </dateProperty>
+          <!-- -->
+          <timeProperty>
+            <name>startTimeProperty</name>
+            <getCode>getTimeProperty</getCode>
+            <setCode>setTimeProperty(%s)</setCode>
+            <secured>false</secured>
+            <enabled>true</enabled>
+            <writable>true</writable>
+            <label>
+              <value type="literal" language="en">Start Time:</value>
+            </label>
+            <bgcolor>0x500</bgcolor>
+            <hints>
+              <hint>timepicker</hint>
+            </hints>
+          </timeProperty>
+          <!--  -->
+        </elements>
+      </rootContainer>
+    </controlPanel>
+  </controlPanels>
+</controlPanelDevice>
+
